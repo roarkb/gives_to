@@ -1,0 +1,38 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<title>___ Gives to ___</title>
+</head>
+
+<script type="text/javascript">
+
+Array.prototype.shuffle = function () {
+  for (var i = this.length - 1; i > 0; i--) {
+    var j = Math.floor(Math.random() * (i + 1));
+    var tmp = this[i];
+    this[i] = this[j];
+    this[j] = tmp;
+  }
+
+  return this;
+}
+
+var xhr = new XMLHttpRequest();
+
+xhr.open('GET', 'people.txt', false);
+xhr.send(null);
+
+var people = xhr.responseText.split('\n').shuffle().filter(function(e){return e});
+
+for (var i=0;i<people.length;i++) {
+  if (people[i+1]) {
+    document.write(people[i] + " gives to " + people[i+1] + "<br><br>");
+  }
+}
+
+document.write(people.slice(-1)[0] + " gives to " + people[0]);
+
+</script>
+</body>
+</html>
